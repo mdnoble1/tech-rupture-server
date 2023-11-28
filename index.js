@@ -40,7 +40,9 @@ async function run() {
 
     // get all review data from database 
     app.get("/reviews", async (req, res) => {
-      const result = await reviewCollection.find().toArray();
+      const productName = req.query.product_name;
+      const query = {product_name: productName}
+      const result = await reviewCollection.find(query).toArray();
       res.send(result);
     });
 
