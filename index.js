@@ -27,6 +27,7 @@ async function run() {
 
     // database collection
     const productCollection = client.db("techRuptureDB").collection("products");
+    const reviewCollection = client.db("techRuptureDB").collection("reviews");
 
 
 
@@ -34,6 +35,12 @@ async function run() {
     // get all menu from database
     app.get("/products", async (req, res) => {
       const result = await productCollection.find().toArray();
+      res.send(result);
+    });
+
+    // get all review data from database 
+    app.get("/reviews", async (req, res) => {
+      const result = await reviewCollection.find().toArray();
       res.send(result);
     });
 
