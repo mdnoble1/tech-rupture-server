@@ -38,13 +38,7 @@ async function run() {
       res.send(result);
     });
 
-    // get all review data from database 
-    app.get("/reviews", async (req, res) => {
-      const productName = req.query.product_name;
-      const query = {product_name: productName}
-      const result = await reviewCollection.find(query).toArray();
-      res.send(result);
-    });
+    
 
     // query for product details
     app.get("/products/:_id", async (req, res) => {
@@ -54,6 +48,21 @@ async function run() {
       res.send(result);
     });
 
+
+    // get reviews data from database using query based on product name 
+    app.get("/reviews", async (req, res) => {
+      const productName = req.query.product_name;
+      const query = {product_name: productName}
+      const result = await reviewCollection.find(query).toArray();
+      res.send(result);
+    });
+
+    // adding a review in database 
+    app.post("/reviews", async (req, res ) => {
+      const reviewItem = req.body;
+      const result = await reviewCollection.insertOne(reviewItem);
+      res.send(result);
+    })
 
 
 
