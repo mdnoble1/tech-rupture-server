@@ -28,6 +28,7 @@ async function run() {
     // database collection
     const productCollection = client.db("techRuptureDB").collection("products");
     const reviewCollection = client.db("techRuptureDB").collection("reviews");
+    const userCollection = client.db("techRuptureDB").collection("users");
 
 
 
@@ -101,6 +102,14 @@ async function run() {
     app.post("/products", async (req, res ) => {
       const product = req.body;
       const result = await productCollection.insertOne(product);
+      res.send(result);
+    })
+
+
+    // adding a new user in database 
+    app.post("/users", async (req, res ) => {
+      const user = req.body;
+      const result = await userCollection.insertOne(user);
       res.send(result);
     })
 
