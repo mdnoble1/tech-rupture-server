@@ -35,7 +35,24 @@ async function run() {
     // get all products from database and all the queries should be performed here 
     app.get("/products", async (req, res) => {
       const productOwner = req.query.product_owner;
-      const query = {product_owner: productOwner}
+      const tag = req.query.tag;
+
+
+      // Creating an empty query object
+      let query = {};
+
+      // Checking for "product_owner"
+      if (productOwner) {
+          query.product_owner = productOwner;
+       }
+
+      // Checking for "tag"
+      if (tag) {
+        query.tag = tag;
+      }
+
+
+      
       const result = await productCollection.find(query).toArray();
       res.send(result);
     });
@@ -60,9 +77,8 @@ async function run() {
     });
 
 
-    // get product data from database using query this is so wrong way
+    // get product data from database using query in this way is so wrong way , I have to do it all together like in the top
 
-    
     // app.get("/products", async (req, res) => {
     //   const productOwner = req.query.product_owner;
     //   const query = {product_owner: productOwner}
