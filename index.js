@@ -58,6 +58,15 @@ async function run() {
     });
 
 
+    // get product data from database using query based on product owner name 
+    app.get("/products", async (req, res) => {
+      const productOwner = req.query.product_owner;
+      const query = {product_owner: productOwner}
+      const result = await productCollection.find(query).toArray();
+      res.send(result);
+    });
+
+
    
 
     // adding a review in database 
