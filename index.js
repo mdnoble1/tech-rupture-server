@@ -32,9 +32,11 @@ async function run() {
 
 
 
-    // get all products from database
+    // get all products from database and all the queries should be performed here 
     app.get("/products", async (req, res) => {
-      const result = await productCollection.find().toArray();
+      const productOwner = req.query.product_owner;
+      const query = {product_owner: productOwner}
+      const result = await productCollection.find(query).toArray();
       res.send(result);
     });
 
@@ -58,13 +60,15 @@ async function run() {
     });
 
 
-    // get product data from database using query based on product owner name 
-    app.get("/products", async (req, res) => {
-      const productOwner = req.query.product_owner;
-      const query = {product_owner: productOwner}
-      const result = await productCollection.find(query).toArray();
-      res.send(result);
-    });
+    // get product data from database using query this is so wrong way
+
+    
+    // app.get("/products", async (req, res) => {
+    //   const productOwner = req.query.product_owner;
+    //   const query = {product_owner: productOwner}
+    //   const result = await productCollection.find(query).toArray();
+    //   res.send(result);
+    // });
 
 
    
