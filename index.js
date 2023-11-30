@@ -32,7 +32,7 @@ async function run() {
 
 
 
-    // get all menu from database
+    // get all products from database
     app.get("/products", async (req, res) => {
       const result = await productCollection.find().toArray();
       res.send(result);
@@ -57,10 +57,21 @@ async function run() {
       res.send(result);
     });
 
+
+   
+
     // adding a review in database 
     app.post("/reviews", async (req, res ) => {
       const reviewItem = req.body;
       const result = await reviewCollection.insertOne(reviewItem);
+      res.send(result);
+    })  
+
+
+    // adding a new product in database 
+    app.post("/products", async (req, res ) => {
+      const product = req.body;
+      const result = await reviewCollection.insertOne(product);
       res.send(result);
     })
 
