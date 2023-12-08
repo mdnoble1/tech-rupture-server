@@ -131,13 +131,27 @@ async function run() {
     })
 
     // make admin api using patch method 
-    app.patch('/users/admin/:id', verifyToken, verifyAdmin, async(req, res) => {
+    app.patch('/users/admin/:id', async(req, res) => {
       const id = req.params.id;
       const filter = {_id: new ObjectId(id)};
       
       const updateDoc = {
         $set: {
           role: "admin"
+        }
+      }
+      const result = await userCollection.updateOne(filter, updateDoc);
+      res.send(result);
+    })
+
+    // make moderator api using patch method 
+    app.patch('/users/moderator/:id', async(req, res) => {
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)};
+      
+      const updateDoc = {
+        $set: {
+          role: "moderator"
         }
       }
       const result = await userCollection.updateOne(filter, updateDoc);
